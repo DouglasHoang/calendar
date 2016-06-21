@@ -37,6 +37,7 @@ import { PricingComponent } from './pricing.component';
     }
     nav:hover {
       background-color: white;
+      box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16), 0 3px 6px 0 rgba(0, 0, 0, 0.23);
     }
     a {
       margin: 0 20px;

@@ -22,7 +22,7 @@ nav a {
     align-items: center;
     flex-direction: column;
     color: black;
-    box-shadow: 0px 0px 8px 2px #000000;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16), 0 3px 6px 0 rgba(0, 0, 0, 0.23);
 }
 
 .header h1 {
