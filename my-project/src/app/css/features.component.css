@@ -1,0 +1,22 @@
+section {
+    margin-top: 50px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 7vw;
+    font-weight: 400;
+}
+
+.container {
+    display: flex;
+    padding: 30px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    
+}
+
+.card {
+    display: flex;
+}
+

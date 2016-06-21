@@ -1,0 +1,93 @@
+<!-- 
+Notes/Fix:
+  1. Fix the h1 on the features section to change size
+  when the screen size changes.
+  2. Fix the features card so that when the screen sizes changes
+  two cards collapse
+  3. Templates h1 fix refer to #1
+  4. Add more content to the pricing section
+  5. Fix the footer to be responsive and move
+  it to the my-project.ts
+
+  
+-->
+
+<section class="header">
+<!--  <nav>
+    <a [routerLink]="['Features']">Features</a>
+    <a href="#">Templates</a>
+    <a href="#">Pricing</a>
+    <a href="#">Sign In</a>
+  </nav>
+  -->
+  <h1>Barnacle Boyz</h1>
+  <h2>Nail Salon Web Hosting</h2>
+</section>
+
+<section class="features">
+  <h1>We make managing your salon easy.</h1>
+<!-- Angular Material grid system
+  <md-grid-list cols="4" gutterSize="2em">
+   <md-grid-tile>
+     <i class="material-icons">today</i>
+     <h3>Calendar</h3>
+     <p>Calendar's rule!</p>
+     </md-grid-tile>
+   <md-grid-tile><h3>Online Scheduling</h3></md-grid-tile>
+   <md-grid-tile><h3>Customer Profiles</h3></md-grid-tile>
+   <md-grid-tile><h3>Reports</h3></md-grid-tile>
+  </md-grid-list>
+-->
+
+  <div class="featureFlex">
+    <div class="featureBox">
+      <i class="material-icons">today</i>
+      <h3>Calendar</h3>
+      <p>Create a calendar that keep track of all your salon appointments, special events, and holidays!</p>
+    </div>
+    <div class="featureBox">
+      <i class="material-icons">book</i>
+      <h3>Online Scheduling</h3>
+      <p>Customers can see all your available times and schedule appointments through your website in real time.</p>
+    </div >
+    <div class="featureBox">
+      <i class="material-icons">perm_contact_calendar</i>
+      <h3>Customer Profiles</h3>
+      <p>Keep track of all your customers and their preferences with a profile that includes their contact information and service and retail history all in one place.
+</p>
+    </div>
+    <div class="featureBox">
+      <i class="material-icons">poll</i>
+      <h3>Reports</h3>
+      <p>Manage your salon with detailed financial records and performance reports right at your fingertips.</p>
+    </div>
+  </div>
+
+
+</section>
+
+<hr>
+
+<section class="templates">
+  <h1>Choose from hundreds of templates.</h1>
+
+  <!-- Snatched from codepen -->
+  <div class="containerTemplate">
+    <div><img src="http://www.bluewebtemplates.com/screenshots/bluediamond-med.jpg" alt></div>
+    <div><img src="http://www.bluewebtemplates.com/screenshots/timefree-med.jpg" alt></div>
+    <div><img src="http://www.bluewebtemplates.com/screenshots/webriver3d-med.jpg" alt></div>
+    <div><img src="http://www.bluewebtemplates.com/screenshots/greenworld-med.jpg" alt></div>
+    <div><img src="http://www.bluewebtemplates.com/screenshots/fantasyland-med.jpg" alt></div>
+  </div>
+</section>
+<hr>
+<section class="pricing">
+  <h1>Starting at $10 a month!</h1>
+</section>
+
+<footer>
+  <div class="company">&copy;Barnacle Boyz Inc.</div>
+  <div><i class="material-icons">call</i>Phone: 817.805.2234</div>
+  <div><i class="material-icons">email</i>Email: dh4ang@gmail.com</div>
+  <div class="socialmedia"></div>
+</footer>
