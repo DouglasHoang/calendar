@@ -10,7 +10,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 @Component({
     selector: 'my-template',
     templateUrl: 'app/html/template.component.html',
-    styleUrls: ['app/css/template.component.html'],
+    styleUrls: ['app/css/template.component.css'],
     directives: [
         MD_CARD_DIRECTIVES,
         MD_BUTTON_DIRECTIVES,
