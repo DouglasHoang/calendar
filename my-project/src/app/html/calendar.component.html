@@ -12,32 +12,32 @@
         </div>
         <div class="dateContainer">
             <div class="row-1 row">
-                <div *ngFor="let date of displayCalendar[0]" class="date">
+                <div *ngFor="let date of displayCalendar[0]" class="date" [ngClass]="{invisibleRow: date.hide}">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-2 row">
-                <div *ngFor="let date of displayCalendar[1]" class="date">
+                <div *ngFor="let date of displayCalendar[1]" class="date" [ngClass]="{invisibleRow: date.hide}">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-3 row">
-                <div *ngFor="let date of displayCalendar[2]" class="date">
+                <div *ngFor="let date of displayCalendar[2]" class="date" [ngClass]="{invisibleRow: date.hide}">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-4 row">
-                <div *ngFor="let date of displayCalendar[3]" class="date">
+                <div *ngFor="let date of displayCalendar[3]" class="date" [ngClass]="{invisibleRow: date.hide}">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-5 row">
-                <div *ngFor="let date of displayCalendar[4]" class="date">
+                <div *ngFor="let date of displayCalendar[4]" class="date" [ngClass]="{invisibleRow: date.hide}">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-6 row">
-                <div *ngFor="let date of displayCalendar[5]" class="date">
+                <div *ngFor="let date of displayCalendar[5]" class="date" [ngClass]="{invisibleRow: date.hide}">
                     {{ date.date }}
                 </div>
             </div>

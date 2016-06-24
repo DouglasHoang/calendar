@@ -6,12 +6,15 @@ import { MD_TOOLBAR_DIRECTIVES } from '@angular2-material/toolbar';
 import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav';
 import { MD_GRID_LIST_DIRECTIVES } from '@angular2-material/grid-list';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import {NgClass} from '@angular/common';
+
 
 interface Day {
     year: number;
     month: number;          // 0-11 months
     dayName: number;        // 0-6 days
-    date: number;           // day number
+    date: number;
+    hide: boolean;           // day number
     appointment?: string
 }
 // Creates an array of object for each day
@@ -23,7 +26,6 @@ export class DayService {
     daysInMonth: number;
     firstDayMonth: number;
     dateObj:Date;
-    count = 0;
 
     constructor(month , year) {
         this.month = month;
@@ -37,13 +39,13 @@ export class DayService {
             this.extraDays = 42 - this.daysInMonth - this.firstDayMonth;
 
             for ( let j = (1 - this.firstDayMonth); j <= (this.daysInMonth + this.extraDays); j++ ) {
-                this.count++;
                 this.dateObj = new Date(this.year, this.month, j);
                 this.date.push({
                     year: this.year,
                     month: this.dateObj.getMonth(),
                     dayName: this.dateObj.getDay(),
-                    date: this.dateObj.getDate()
+                    date: this.dateObj.getDate(),
+                    hide: (j >= 1 && j <= this.daysInMonth ? false : true)
                 })
             }
             return this.date;
@@ -59,12 +61,13 @@ export class DisplayCalendar {
     }
 
     getRows() {
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 6; i++) {
            this.row[i] = this.date.slice(i * 7, 7 * (i + 1))
        }
        return this.row;
     }
 }
+
 
 @Component({
     selector: 'my-calendar',
@@ -77,7 +80,8 @@ export class DisplayCalendar {
         MD_TOOLBAR_DIRECTIVES,
         MD_SIDENAV_DIRECTIVES,
         MD_GRID_LIST_DIRECTIVES,
-        ROUTER_DIRECTIVES        
+        ROUTER_DIRECTIVES,
+        NgClass        
     ],
 })
 
