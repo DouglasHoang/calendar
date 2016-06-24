@@ -11,6 +11,7 @@ import { FeaturesComponent } from './features.component';
 import { SignInComponent } from './sign-in.component';
 import { TemplateComponent } from './template.component';
 import { PricingComponent } from './pricing.component';
+import { CalendarComponent } from './calendar.component';
 
 @Component({
   moduleId: module.id,
@@ -81,8 +82,12 @@ import { PricingComponent } from './pricing.component';
     path:'signin',
     name: 'SignIn',
     component: SignInComponent
+  },
+  {
+    path:'calendar',
+    name: 'Calendar',
+    component: CalendarComponent
   }
-
 ])
 
 export class MyProjectAppComponent {

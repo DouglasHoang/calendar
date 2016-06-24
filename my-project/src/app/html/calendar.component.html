@@ -1,0 +1,48 @@
+
+<section>
+    <div class="buttonContainer">
+    <button (click)="getLastMonth()">Last Month</button>
+    <button (click)="getNextMonth()">Next Month</button>
+    <button (click)="getToday()">Today</button> 
+    </div>
+    <div class="calendarContainer">
+        <h1>{{ month[currentMonth] }} {{ currentYear }}</h1>
+        <div class="dayNameContainer">
+            <div *ngFor="let day of day" class="dayName">{{ day }}</div>
+        </div>
+        <div class="dateContainer">
+            <div class="row-1 row">
+                <div *ngFor="let date of displayCalendar[0]" class="date">
+                    {{ date.date }}
+                </div>
+            </div>
+            <div class="row-2 row">
+                <div *ngFor="let date of displayCalendar[1]" class="date">
+                    {{ date.date }}
+                </div>
+            </div>
+            <div class="row-3 row">
+                <div *ngFor="let date of displayCalendar[2]" class="date">
+                    {{ date.date }}
+                </div>
+            </div>
+            <div class="row-4 row">
+                <div *ngFor="let date of displayCalendar[3]" class="date">
+                    {{ date.date }}
+                </div>
+            </div>
+            <div class="row-5 row">
+                <div *ngFor="let date of displayCalendar[4]" class="date">
+                    {{ date.date }}
+                </div>
+            </div>
+            <div class="row-6 row">
+                <div *ngFor="let date of displayCalendar[5]" class="date">
+                    {{ date.date }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
