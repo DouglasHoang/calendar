@@ -100,12 +100,73 @@ export class CalendarComponent {
     currentYear = this.dateObj.getFullYear();
     currentDate = this.dateObj.getDate();
     currentMonth = this.dateObj.getMonth();
+    date: number; 
+    dummyData = [
+        {time: "8:00", description: "nails"},
+        {time: "8:15", description: ""},
+        {time: "8:30", description: ""},
+        {time: "8:45", description: ""},
+        {time: "9:00", description: ""},
+        {time: "9:15", description: ""},
+        {time: "9:30", description: ""},
+        {time: "9:45", description: ""},
+        {time: "10:00", description: ""},
+        {time: "10:15", description: ""},
+        {time: "10:30", description: ""},
+        {time: "10:45", description: ""},
+        {time: "11:00", description: ""},
+        {time: "11:15", description: ""},
+        {time: "11:30", description: ""},
+        {time: "11:45", description: ""},
+        {time: "12:00", description: ""},
+        {time: "12:15", description: ""},
+        {time: "12:30", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+        {time: "12:45", description: ""},
+    ];
+
+    displayLightBox: boolean = false;
+    dayNumber: number;
 
     firstDayOfM = new Date(this.currentYear, this.currentMonth, 1);
     numberDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
 
     calendar = new DayService(this.currentMonth ,this.currentYear).getCalendar();
     displayCalendar = new DisplayCalendar(this.calendar).getRows();
+    
+    getLightBox(data) {
+        this.displayLightBox = true;
+        this.date = data.date;
+        this.dayNumber = data.dayName;
+    }
+
+    exitLightBox() {
+        this.displayLightBox = false;
+    }
     
 
     getLastMonth() {
@@ -139,6 +200,6 @@ export class CalendarComponent {
         this.displayCalendar = new DisplayCalendar(this.calendar).getRows();
     }
 
-
+    
 
 }

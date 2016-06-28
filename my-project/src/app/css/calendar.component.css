@@ -41,6 +41,7 @@ h1 {
     margin: 0;
     padding-right: 20px;
     text-align: right;
+    border-right: 1px solid #eee;
 }
 
 .row {
@@ -48,6 +49,23 @@ h1 {
     height: auto;
     display: flex;
     flex-direction: row;
+}
+
+.row-2 .date{
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+.row-3 .date{
+    border-bottom: 1px solid #eee;
+}
+
+.row-4 .date{
+    border-bottom: 1px solid #eee;
+}
+.row-5 .date{
+    border-bottom: 1px solid #eee;
+}
+.row-6 .date{
     border-bottom: 1px solid #eee;
 }
 
@@ -57,4 +75,48 @@ h1 {
 
 .invisibleRow {
     visibility: hidden;
+}
+
+.lightbox{
+    display: none;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.7);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 20;
+	padding-top: 30px;
+	box-sizing: border-box;
+    padding: 20px;
+    overflow-x:scroll;
+}
+
+.showlightbox {
+    display: block;
+}
+
+.lightboxContainer {
+    position: relative;
+    background-color: white;
+    border-radius: 2px;
+    padding: 10px;;
+}
+
+.lightboxContainer button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.appointments > div {
+    border-bottom: 1px solid black;
+    margin: 5px;
+    width:50%
+}
+
+tbody {
+    height: 550px;
+    overflow: auto;
+    display: block;
 }

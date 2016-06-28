@@ -12,37 +12,61 @@
         </div>
         <div class="dateContainer">
             <div class="row-1 row">
-                <div *ngFor="let date of displayCalendar[0]" class="date" [ngClass]="{invisibleRow: date.hide}">
+                <div *ngFor="let date of displayCalendar[0]" class="date" [ngClass]="{invisibleRow: date.hide}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-2 row">
-                <div *ngFor="let date of displayCalendar[1]" class="date" [ngClass]="{invisibleRow: date.hide}">
+                <div *ngFor="let date of displayCalendar[1]" class="date" [ngClass]="{invisibleRow: date.hide}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-3 row">
-                <div *ngFor="let date of displayCalendar[2]" class="date" [ngClass]="{invisibleRow: date.hide}">
+                <div *ngFor="let date of displayCalendar[2]" class="date" [ngClass]="{invisibleRow: date.hide}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-4 row">
-                <div *ngFor="let date of displayCalendar[3]" class="date" [ngClass]="{invisibleRow: date.hide}">
+                <div *ngFor="let date of displayCalendar[3]" class="date" [ngClass]="{invisibleRow: date.hide}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-5 row">
-                <div *ngFor="let date of displayCalendar[4]" class="date" [ngClass]="{invisibleRow: date.hide}">
+                <div *ngFor="let date of displayCalendar[4]" class="date" [ngClass]="{invisibleRow: date.hide}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-6 row">
-                <div *ngFor="let date of displayCalendar[5]" class="date" [ngClass]="{invisibleRow: date.hide}">
+                <div *ngFor="let date of displayCalendar[5]" class="date" [ngClass]="{invisibleRow: date.hide}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
+                
             </div>
 
         </div>
     </div>
 
 </section>
+
+<div class="lightbox" [ngClass]="{showlightbox: displayLightBox}">
+    <div class="lightboxContainer">
+        <h1>{{ day[dayNumber] }} {{ month[currentMonth] }} {{ date }}, {{ currentYear }}</h1>
+        <button (click)="exitLightBox()">Exit</button>
+        <div class="appointments">
+            Select Technician: <select>
+                <option value="volvo"></option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+            <table style="width:100%">
+                <tbody>
+                <tr *ngFor="let data of dummyData">
+                    <td>{{ data.time }}</td>
+                    <td>{{ data.description }}</td> 
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <div>
+</div>
