@@ -1,43 +1,57 @@
-
 <section>
-    <div class="buttonContainer">
-    <button (click)="getLastMonth()">Last Month</button>
-    <button (click)="getNextMonth()">Next Month</button>
-    <button (click)="getToday()">Today</button> 
+    <div class="setting">
+        <h1>Calendar</h1>
+        <label>
+            Select Service: <select>
+                <option></option>
+                <option *ngFor="let service of services" [value]="service">{{ service }}</option>
+            </select>
+        </label>
+
+        <label id="tech">
+            Select Technician: <select>
+                <option *ngFor="let service of services" [value]="service">{{ service }}</option>
+            </select>
+        </label>
+        
     </div>
     <div class="calendarContainer">
-        <h1>{{ month[currentMonth] }} {{ currentYear }}</h1>
+        <div class="calendarheading">
+            <i class="material-icons" (click)="getLastMonth()">keyboard_arrow_left</i>
+            <h1>{{ month[currentMonth] }} {{ currentYear }}</h1>
+            <i class="material-icons" (click)="getNextMonth()">keyboard_arrow_right</i>
+        </div>
         <div class="dayNameContainer">
             <div *ngFor="let day of day" class="dayName">{{ day }}</div>
         </div>
         <div class="dateContainer">
             <div class="row-1 row">
-                <div *ngFor="let date of displayCalendar[0]" class="date" [ngClass]="{invisibleRow: date.hide}" (click)="getLightBox(date)">
+                <div *ngFor="let date of displayCalendar[0]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-2 row">
-                <div *ngFor="let date of displayCalendar[1]" class="date" [ngClass]="{invisibleRow: date.hide}" (click)="getLightBox(date)">
+                <div *ngFor="let date of displayCalendar[1]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-3 row">
-                <div *ngFor="let date of displayCalendar[2]" class="date" [ngClass]="{invisibleRow: date.hide}" (click)="getLightBox(date)">
+                <div *ngFor="let date of displayCalendar[2]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-4 row">
-                <div *ngFor="let date of displayCalendar[3]" class="date" [ngClass]="{invisibleRow: date.hide}" (click)="getLightBox(date)">
+                <div *ngFor="let date of displayCalendar[3]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-5 row">
-                <div *ngFor="let date of displayCalendar[4]" class="date" [ngClass]="{invisibleRow: date.hide}" (click)="getLightBox(date)">
+                <div *ngFor="let date of displayCalendar[4]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
             <div class="row-6 row">
-                <div *ngFor="let date of displayCalendar[5]" class="date" [ngClass]="{invisibleRow: date.hide}" (click)="getLightBox(date)">
+                <div *ngFor="let date of displayCalendar[5]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
                 
@@ -51,7 +65,7 @@
 <div class="lightbox" [ngClass]="{showlightbox: displayLightBox}">
     <div class="lightboxContainer">
         <h1>{{ day[dayNumber] }} {{ month[currentMonth] }} {{ date }}, {{ currentYear }}</h1>
-        <button (click)="exitLightBox()">Exit</button>
+        <i class="material-icons cancel" (click)="exitLightBox()">cancel</i>
         <div class="appointments">
             Select Technician: <select>
                 <option value="volvo"></option>

@@ -17,13 +17,6 @@ import { CalendarComponent } from './calendar.component';
   moduleId: module.id,
   selector: 'my-project-app',
   template: `
-  <nav>
-    <a [routerLink]="['Home']">Home</a>
-    <a [routerLink]="['Features']">Features</a>
-    <a [routerLink]="['Template']">Templates</a>
-    <a [routerLink]="['Pricing']">Pricing</a>
-    <a [routerLink]="['SignIn']">Sign In</a>
-  </nav>
   <router-outlet></router-outlet>
   `,
   styles: [`

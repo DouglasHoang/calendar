@@ -8,6 +8,11 @@ import { MD_GRID_LIST_DIRECTIVES } from '@angular2-material/grid-list';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import {NgClass} from '@angular/common';
 
+interface Appointment {
+    time: number;
+    description: string;
+}
+
 
 interface Day {
     year: number;
@@ -15,6 +20,8 @@ interface Day {
     dayName: number;        // 0-6 days
     date: number;
     hide: boolean;           // day number
+    today: boolean;         // is it today?
+    previousdays: boolean;
     appointment?: string
 }
 // Creates an array of object for each day
@@ -26,6 +33,9 @@ export class DayService {
     daysInMonth: number;
     firstDayMonth: number;
     dateObj:Date;
+    currentDate = new Date();
+    
+    isPreviousDay: boolean;
 
     constructor(month , year) {
         this.month = month;
@@ -40,18 +50,48 @@ export class DayService {
 
             for ( let j = (1 - this.firstDayMonth); j <= (this.daysInMonth + this.extraDays); j++ ) {
                 this.dateObj = new Date(this.year, this.month, j);
+                if (this.currentDate.getFullYear() == this.dateObj.getFullYear()) {
+                    if (this.currentDate.getMonth() == this.dateObj.getMonth()) {
+                        if (this.currentDate.getDate() > this.dateObj.getDate()) {
+                            this.isPreviousDay = true;
+                        }
+                        else {
+                            this.isPreviousDay = false;
+                        }
+                    }
+                    else if (this.currentDate.getMonth() < this.dateObj.getMonth()) {
+                        this.isPreviousDay = false;
+                    }
+                    else if (this.currentDate.getMonth() > this.dateObj.getMonth()) {
+                        this.isPreviousDay = true;
+                    }
+                }
+                else if (this.currentDate.getFullYear() > this.dateObj.getFullYear()) {
+                    this.isPreviousDay = true;
+                }
+                else if (this.currentDate.getFullYear() < this.dateObj.getFullYear()) {
+                    this.isPreviousDay = false;
+                }
+
+
+
+
                 this.date.push({
                     year: this.year,
                     month: this.dateObj.getMonth(),
                     dayName: this.dateObj.getDay(),
                     date: this.dateObj.getDate(),
-                    hide: (j >= 1 && j <= this.daysInMonth ? false : true)
+                    hide: (j >= 1 && j <= this.daysInMonth ? false : true),
+                    today: (this.currentDate.getDate() == this.dateObj.getDate() && this.currentDate.getMonth() == this.dateObj.getMonth() && this.currentDate.getFullYear() == this.dateObj.getFullYear() ? true : false),
+                    previousdays: this.isPreviousDay
                 })
             }
             return this.date;
     }
 
 }
+
+
 
 export class DisplayCalendar {
     date: Day[];
@@ -95,59 +135,14 @@ export class CalendarComponent {
     "November", "December"
     ];
 
+    services = ["Nails", "Spa", "Massage"];
+
     dateObj = new Date();
     currentDay = this.dateObj.getDay();
     currentYear = this.dateObj.getFullYear();
     currentDate = this.dateObj.getDate();
     currentMonth = this.dateObj.getMonth();
     date: number; 
-    dummyData = [
-        {time: "8:00", description: "nails"},
-        {time: "8:15", description: ""},
-        {time: "8:30", description: ""},
-        {time: "8:45", description: ""},
-        {time: "9:00", description: ""},
-        {time: "9:15", description: ""},
-        {time: "9:30", description: ""},
-        {time: "9:45", description: ""},
-        {time: "10:00", description: ""},
-        {time: "10:15", description: ""},
-        {time: "10:30", description: ""},
-        {time: "10:45", description: ""},
-        {time: "11:00", description: ""},
-        {time: "11:15", description: ""},
-        {time: "11:30", description: ""},
-        {time: "11:45", description: ""},
-        {time: "12:00", description: ""},
-        {time: "12:15", description: ""},
-        {time: "12:30", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-        {time: "12:45", description: ""},
-    ];
 
     displayLightBox: boolean = false;
     dayNumber: number;
@@ -159,9 +154,11 @@ export class CalendarComponent {
     displayCalendar = new DisplayCalendar(this.calendar).getRows();
     
     getLightBox(data) {
-        this.displayLightBox = true;
-        this.date = data.date;
-        this.dayNumber = data.dayName;
+        if (data.previousdays == false) {
+            this.displayLightBox = true;
+            this.date = data.date;
+            this.dayNumber = data.dayName;
+        }
     }
 
     exitLightBox() {
@@ -200,6 +197,8 @@ export class CalendarComponent {
         this.displayCalendar = new DisplayCalendar(this.calendar).getRows();
     }
 
-    
+    selectedService(service) {
+        document.getElementById("tech").innerHTML = "Hi";
+    }
 
 }
