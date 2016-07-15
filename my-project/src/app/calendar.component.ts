@@ -7,112 +7,19 @@ import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav';
 import { MD_GRID_LIST_DIRECTIVES } from '@angular2-material/grid-list';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import {NgClass} from '@angular/common';
-
-interface Appointment {
-    time: number;
-    description: string;
-}
-
-
-interface Day {
-    year: number;
-    month: number;          // 0-11 months
-    dayName: number;        // 0-6 days
-    date: number;
-    hide: boolean;           // day number
-    today: boolean;         // is it today?
-    previousdays: boolean;
-    appointment?: string
-}
-// Creates an array of object for each day
-export class DayService {
-    date: Day[] = [];
-    year: number;
-    month: number;
-    extraDays: number;
-    daysInMonth: number;
-    firstDayMonth: number;
-    dateObj:Date;
-    currentDate = new Date();
-    
-    isPreviousDay: boolean;
-
-    constructor(month , year) {
-        this.month = month;
-        this.year = year;
-    }
-
-//  Fills an array with day objects
-    getCalendar() {
-            this.daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
-            this.firstDayMonth = new Date(this.year, this.month, 1).getDay();
-            this.extraDays = 42 - this.daysInMonth - this.firstDayMonth;
-
-            for ( let j = (1 - this.firstDayMonth); j <= (this.daysInMonth + this.extraDays); j++ ) {
-                this.dateObj = new Date(this.year, this.month, j);
-                if (this.currentDate.getFullYear() == this.dateObj.getFullYear()) {
-                    if (this.currentDate.getMonth() == this.dateObj.getMonth()) {
-                        if (this.currentDate.getDate() > this.dateObj.getDate()) {
-                            this.isPreviousDay = true;
-                        }
-                        else {
-                            this.isPreviousDay = false;
-                        }
-                    }
-                    else if (this.currentDate.getMonth() < this.dateObj.getMonth()) {
-                        this.isPreviousDay = false;
-                    }
-                    else if (this.currentDate.getMonth() > this.dateObj.getMonth()) {
-                        this.isPreviousDay = true;
-                    }
-                }
-                else if (this.currentDate.getFullYear() > this.dateObj.getFullYear()) {
-                    this.isPreviousDay = true;
-                }
-                else if (this.currentDate.getFullYear() < this.dateObj.getFullYear()) {
-                    this.isPreviousDay = false;
-                }
-
-
-
-
-                this.date.push({
-                    year: this.year,
-                    month: this.dateObj.getMonth(),
-                    dayName: this.dateObj.getDay(),
-                    date: this.dateObj.getDate(),
-                    hide: (j >= 1 && j <= this.daysInMonth ? false : true),
-                    today: (this.currentDate.getDate() == this.dateObj.getDate() && this.currentDate.getMonth() == this.dateObj.getMonth() && this.currentDate.getFullYear() == this.dateObj.getFullYear() ? true : false),
-                    previousdays: this.isPreviousDay
-                })
-            }
-            return this.date;
-    }
-
-}
-
-
-
-export class DisplayCalendar {
-    date: Day[];
-    row = [];
-    constructor(date) {
-       this.date = date;
-    }
-
-    getRows() {
-        for (let i = 0; i < 6; i++) {
-           this.row[i] = this.date.slice(i * 7, 7 * (i + 1))
-       }
-       return this.row;
-    }
-}
+import { Appointment } from './appointment';
+import { Day } from './day';
+import { DayService } from './dayservice';
+import { DisplayCalendar } from './display.calendar';
+import { TimePipe } from './time-pipe';
+import { AppointmentService } from './appointment.service';
 
 
 @Component({
     selector: 'my-calendar',
     templateUrl: 'app/html/calendar.component.html',
     styleUrls: ['app/css/calendar.component.css'],
+    pipes: [TimePipe],
     directives: [
         MD_CARD_DIRECTIVES,
         MD_BUTTON_DIRECTIVES,
@@ -126,7 +33,6 @@ export class DisplayCalendar {
 })
 
 export class CalendarComponent {
-    title: 'Calendar';
     day = ["Sunday", "Monday", "Tuesday", "Wednesday",
     "Thursday", "Friday", "Saturday"
     ];
@@ -135,6 +41,7 @@ export class CalendarComponent {
     "November", "December"
     ];
 
+    technicians = ["Doug", "Bob", "Billy"];
     services = ["Nails", "Spa", "Massage"];
 
     dateObj = new Date();
@@ -153,12 +60,16 @@ export class CalendarComponent {
     calendar = new DayService(this.currentMonth ,this.currentYear).getCalendar();
     displayCalendar = new DisplayCalendar(this.calendar).getRows();
     
+    appointments = new AppointmentService("9:00","18:00");
     getLightBox(data) {
         if (data.previousdays == false) {
             this.displayLightBox = true;
             this.date = data.date;
             this.dayNumber = data.dayName;
         }
+
+        this.appointments.createAppointments(data);
+
     }
 
     exitLightBox() {
@@ -175,6 +86,8 @@ export class CalendarComponent {
         this.numberDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
         this.calendar = new DayService(this.currentMonth, this.currentYear).getCalendar();
         this.displayCalendar = new DisplayCalendar(this.calendar).getRows();
+        console.log(new Date().getHours());
+        console.log(new Date().getMinutes());
 
     }
 
@@ -197,8 +110,5 @@ export class CalendarComponent {
         this.displayCalendar = new DisplayCalendar(this.calendar).getRows();
     }
 
-    selectedService(service) {
-        document.getElementById("tech").innerHTML = "Hi";
-    }
 
 }

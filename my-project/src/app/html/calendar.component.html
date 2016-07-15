@@ -1,63 +1,74 @@
 <section>
     <div class="setting">
-        <h1>Calendar</h1>
-        <label>
-            Select Service: <select>
-                <option></option>
-                <option *ngFor="let service of services" [value]="service">{{ service }}</option>
-            </select>
-        </label>
+        <h1>Appointment Book</h1>
+        <div class="container-select" *ngFor="let repeat of repeats">
+            <label>
+                <select (change)="value=$event.target.value">
+                    <option value=0>Select Service</option>
+                    <option *ngFor="let service of services" [value]="service">{{ service }}</option>
+                </select>
+            </label>
 
-        <label id="tech">
-            Select Technician: <select>
-                <option *ngFor="let service of services" [value]="service">{{ service }}</option>
-            </select>
-        </label>
+            <label id="tech">
+                <select>
+                    <option>Select Technician</option>
+                    <option *ngFor="let technician of technicians" [value]="technician">{{ technician }}</option>
+                </select>
+            </label>
+        </div>
         
     </div>
     <div class="calendarContainer">
         <div class="calendarheading">
-            <i class="material-icons" (click)="getLastMonth()">keyboard_arrow_left</i>
-            <h1>{{ month[currentMonth] }} {{ currentYear }}</h1>
-            <i class="material-icons" (click)="getNextMonth()">keyboard_arrow_right</i>
+            <i class="material-icons unselectable" (click)="getLastMonth()">keyboard_arrow_left</i>
+            <div>
+            <h1>{{ month[currentMonth] }}</h1>
+            <h3>{{ currentYear }}</h3>
+            </div>
+            <i class="material-icons unselectable" (click)="getNextMonth()">keyboard_arrow_right</i>
         </div>
-        <div class="dayNameContainer">
+        <div class="dayNameContainer unselectable">
             <div *ngFor="let day of day" class="dayName">{{ day }}</div>
         </div>
-        <div class="dateContainer">
-            <div class="row-1 row">
+
+            <div class="row-1 row unselectable">
                 <div *ngFor="let date of displayCalendar[0]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
+                    <div id="calendar-day">
                     {{ date.date }}
+                    </div>
+                    <div class="bar-container">
+                        <div class="progress" *ngIf="!date.previousdays" ></div>
+                    </div>
                 </div>
             </div>
-            <div class="row-2 row">
+            <div class="row-2 row unselectable">
                 <div *ngFor="let date of displayCalendar[1]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
-            <div class="row-3 row">
+            <div class="row-3 row unselectable">
                 <div *ngFor="let date of displayCalendar[2]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
-            <div class="row-4 row">
+            <div class="row-4 row unselectable">
                 <div *ngFor="let date of displayCalendar[3]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
-            <div class="row-5 row">
+            <div class="row-5 row unselectable">
                 <div *ngFor="let date of displayCalendar[4]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
             </div>
-            <div class="row-6 row">
+            <div class="row-6 row unselectable">
                 <div *ngFor="let date of displayCalendar[5]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
                     {{ date.date }}
                 </div>
                 
             </div>
 
-        </div>
+
     </div>
 
 </section>
@@ -65,19 +76,13 @@
 <div class="lightbox" [ngClass]="{showlightbox: displayLightBox}">
     <div class="lightboxContainer">
         <h1>{{ day[dayNumber] }} {{ month[currentMonth] }} {{ date }}, {{ currentYear }}</h1>
-        <i class="material-icons cancel" (click)="exitLightBox()">cancel</i>
+        <i class="material-icons cancel unselectable" (click)="exitLightBox()">cancel</i>
         <div class="appointments">
-            Select Technician: <select>
-                <option value="volvo"></option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </select>
             <table style="width:100%">
                 <tbody>
-                <tr *ngFor="let data of dummyData">
-                    <td>{{ data.time }}</td>
-                    <td>{{ data.description }}</td> 
+                <tr *ngFor="let appointment of appointments.appointment">
+                    <td>{{ appointment.time | time}}</td>
+                    <td>{{ appointment.description}}</td> 
                 </tr>
                 </tbody>
             </table>

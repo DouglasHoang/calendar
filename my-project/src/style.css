@@ -1,11 +1,11 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100);
 
 
 body, html {
     margin: 0;
     padding: 0;    
     width: 100%;
-    font-family: 'Open Sans', arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: 300;
     background-color: white;
     color: #121416;
