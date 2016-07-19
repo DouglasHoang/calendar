@@ -53,22 +53,25 @@ export class CalendarComponent {
 
     displayLightBox: boolean = false;
     dayNumber: number;
+    appointments: Appointment[];
 
     firstDayOfM = new Date(this.currentYear, this.currentMonth, 1);
     numberDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
 
     calendar = new DayService(this.currentMonth ,this.currentYear).getCalendar();
     displayCalendar = new DisplayCalendar(this.calendar).getRows();
+
+    numberOfAppointments = 300 / this.calendar[0].appointments.length;
+    width = this.numberOfAppointments + "%";
     
-    appointments = new AppointmentService("9:00","18:00");
     getLightBox(data) {
         if (data.previousdays == false) {
             this.displayLightBox = true;
             this.date = data.date;
             this.dayNumber = data.dayName;
+            this.appointments = data.appointments;
         }
 
-        this.appointments.createAppointments(data);
 
     }
 
@@ -76,6 +79,9 @@ export class CalendarComponent {
         this.displayLightBox = false;
     }
     
+    getAppointment(appointment) {
+        appointment.description = false;
+    }
 
     getLastMonth() {
         if ( this.currentMonth == 0 ) {
@@ -86,8 +92,6 @@ export class CalendarComponent {
         this.numberDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
         this.calendar = new DayService(this.currentMonth, this.currentYear).getCalendar();
         this.displayCalendar = new DisplayCalendar(this.calendar).getRows();
-        console.log(new Date().getHours());
-        console.log(new Date().getMinutes());
 
     }
 

@@ -8,5 +8,5 @@ export class Day {
     hide: boolean;           // day number
     today: boolean;         // is it today?
     previousdays: boolean;
-//    appointment: Appointment[];
+    appointments: Appointment[];
 }

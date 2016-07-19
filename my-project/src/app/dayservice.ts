@@ -1,5 +1,7 @@
 import { Day } from './day'
 import { Injectable } from '@angular/core';
+import { AppointmentService } from './appointment.service';
+import { Appointment } from './appointment';
 
 @Injectable()
 export class DayService {
@@ -11,8 +13,11 @@ export class DayService {
     firstDayMonth: number;
     dateObj:Date;
     currentDate = new Date();
-    
+
     isPreviousDay: boolean;
+
+    appointments = new AppointmentService("9:00", "18:00");
+
 
     constructor(month , year) {
         this.month = month;
@@ -60,7 +65,8 @@ export class DayService {
                     date: this.dateObj.getDate(),
                     hide: (j >= 1 && j <= this.daysInMonth ? false : true),
                     today: (this.currentDate.getDate() == this.dateObj.getDate() && this.currentDate.getMonth() == this.dateObj.getMonth() && this.currentDate.getFullYear() == this.dateObj.getFullYear() ? true : false),
-                    previousdays: this.isPreviousDay
+                    previousdays: this.isPreviousDay,
+                    appointments: new AppointmentService("9:00","18:00").createAppointments() // make sure to put the opening and closing times
                 })
             }
             return this.date;

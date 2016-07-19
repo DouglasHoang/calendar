@@ -198,16 +198,15 @@ tbody {
 }
 
 .progress {
-    height: 2px;
-    width: 3px;
+    height: 3px;
 }
 
-.progressavailable {
-    background-color: green;
+.progressAvailable {
+    background-color: #4CAF50;
 }
 
-.progress-not-available {
-    background-color: red;
+.progressNotAvailable {
+    background-color: #424242;
 }
 
 .bar-container {

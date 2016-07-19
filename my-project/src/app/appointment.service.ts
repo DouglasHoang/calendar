@@ -22,8 +22,7 @@ export class AppointmentService {
     closeTimeInMinutes: number;
 
 
-    createAppointments(date: Day) {
-        this.appointment = [];
+    createAppointments() {
         this.openTimeArray = this.openTime.split(":");
         this.closeTimeArray = this.closeTime.split(":");
 
@@ -47,11 +46,11 @@ export class AppointmentService {
                 this.time = Math.floor(x/60) + ":" + x % 60;
             }
             this.appointment.push({
-                day: date,
                 time: this.time,
                 description: true
                 });
         }
+        return this.appointment;
+    }
 
-    }   
 }
