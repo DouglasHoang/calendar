@@ -13,6 +13,7 @@ export class DayService {
     firstDayMonth: number;
     dateObj:Date;
     currentDate = new Date();
+    index: number = 0;
 
     isPreviousDay: boolean;
 
@@ -59,6 +60,7 @@ export class DayService {
 
 
                 this.date.push({
+                    id: this.index,
                     year: this.year,
                     month: this.dateObj.getMonth(),
                     dayName: this.dateObj.getDay(),
@@ -68,8 +70,12 @@ export class DayService {
                     previousdays: this.isPreviousDay,
                     appointments: new AppointmentService("9:00","18:00").createAppointments() // make sure to put the opening and closing times
                 })
+
+                this.index += 1;
             }
             return this.date;
     }
 
+
 }
+

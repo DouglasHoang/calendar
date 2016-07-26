@@ -10,10 +10,9 @@ import {NgClass} from '@angular/common';
 import { Appointment } from './appointment';
 import { Day } from './day';
 import { DayService } from './dayservice';
-import { DisplayCalendar } from './display.calendar';
 import { TimePipe } from './time-pipe';
 import { AppointmentService } from './appointment.service';
-
+import { MockData } from './mock-data';
 
 @Component({
     selector: 'my-calendar',
@@ -41,15 +40,14 @@ export class CalendarComponent {
     "November", "December"
     ];
 
-    technicians = ["Doug", "Bob", "Billy"];
-    services = ["Nails", "Spa", "Massage"];
 
     dateObj = new Date();
     currentDay = this.dateObj.getDay();
     currentYear = this.dateObj.getFullYear();
     currentDate = this.dateObj.getDate();
     currentMonth = this.dateObj.getMonth();
-    date: number; 
+    date: number;
+    id: number; 
 
     displayLightBox: boolean = false;
     dayNumber: number;
@@ -59,10 +57,35 @@ export class CalendarComponent {
     numberDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
 
     calendar = new DayService(this.currentMonth ,this.currentYear).getCalendar();
-    displayCalendar = new DisplayCalendar(this.calendar).getRows();
 
-    numberOfAppointments = 300 / this.calendar[0].appointments.length;
+
+    numberOfAppointments = 300 / MockData[0].appointments.length;
     width = this.numberOfAppointments + "%";
+    mockAppointment = MockData;
+
+// Check Available appointments from the mock data
+    startingIndex = this.getAppointmentsIndex();
+    fill = this.fillCalendar();
+
+    getAppointmentsIndex() {
+        for (let i = 0; i < MockData.length; i++) {
+            if (this.calendar[0].year == MockData[i].year && this.calendar[0].date == MockData[i].date && this.calendar[0].month == MockData[i].month) {
+                return i;
+            }
+        }
+    }
+
+    fillCalendar() {
+        for (let i = 0; i < 42; i++) {
+            this.calendar[i].appointments = this.mockAppointment[i+this.startingIndex].appointments;
+        }
+        
+    }
+
+    getAppointment(appointment) {
+        appointment.available[0].isAvailable = false;
+    
+    }
     
     getLightBox(data) {
         if (data.previousdays == false) {
@@ -70,18 +93,15 @@ export class CalendarComponent {
             this.date = data.date;
             this.dayNumber = data.dayName;
             this.appointments = data.appointments;
+            this.id = data.id;
         }
-
-
     }
+
 
     exitLightBox() {
         this.displayLightBox = false;
     }
     
-    getAppointment(appointment) {
-        appointment.description = false;
-    }
 
     getLastMonth() {
         if ( this.currentMonth == 0 ) {
@@ -91,7 +111,8 @@ export class CalendarComponent {
         this.currentMonth--;
         this.numberDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
         this.calendar = new DayService(this.currentMonth, this.currentYear).getCalendar();
-        this.displayCalendar = new DisplayCalendar(this.calendar).getRows();
+        this.startingIndex = this.getAppointmentsIndex();
+        this.fillCalendar();
 
     }
 
@@ -103,7 +124,8 @@ export class CalendarComponent {
         }
         this.numberDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
         this.calendar = new DayService(this.currentMonth, this.currentYear).getCalendar();
-        this.displayCalendar = new DisplayCalendar(this.calendar).getRows();
+        this.startingIndex = this.getAppointmentsIndex();
+        this.fillCalendar();
     }
 
     getToday() {
@@ -111,7 +133,6 @@ export class CalendarComponent {
         this.currentMonth = this.dateObj.getMonth();
         this.numberDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
         this.calendar = new DayService(this.currentMonth, this.currentYear).getCalendar();
-        this.displayCalendar = new DisplayCalendar(this.calendar).getRows();
     }
 
 

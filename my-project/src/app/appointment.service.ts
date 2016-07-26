@@ -1,6 +1,7 @@
 import { Appointment } from './appointment';
 import { Injectable } from '@angular/core'
 import { Day } from './day';
+import { Technicians } from './mock-tech';
 
 @Injectable()
 
@@ -10,6 +11,7 @@ export class AppointmentService {
     closeTime: string; // in military time
     time: string;
     description: string = "";
+    i: number = 0;
     constructor(openTime, closeTime) {
         this.openTime = openTime;
         this.closeTime = closeTime;
@@ -46,9 +48,11 @@ export class AppointmentService {
                 this.time = Math.floor(x/60) + ":" + x % 60;
             }
             this.appointment.push({
+                id: this.i,
                 time: this.time,
-                description: true
+                available: [{name:"Douglas", isAvailable: true}, {name:"Davis", isAvailable: true}]
                 });
+            this.i += 1;
         }
         return this.appointment;
     }

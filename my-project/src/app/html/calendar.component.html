@@ -32,66 +32,15 @@
             <div *ngFor="let day of day" class="dayName">{{ day }}</div>
         </div>
 
-            <div class="row-1 row unselectable">
-                <div *ngFor="let date of displayCalendar[0]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
+            <div class="date-container unselectable">
+                <div *ngFor="let date of calendar" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
                     <div id="calendar-day">
                         {{ date.date }}
                     </div>
                     <div class="bar-container" *ngIf="!date.previousdays">
-                        <div class="progress" *ngFor="let appointment of date.appointments" [style.width]="width" [ngClass]="{progressAvailable:appointment.description, progressNotAvailable:!appointment.description}"></div>
+                        <div class="progress" *ngFor="let appointment of date.appointments" [style.width]="width" [ngClass]="{progressAvailable:appointment.available[0].isAvailable, progressNotAvailable:!appointment.available[0].isAvailable}"></div>
                     </div>
                 </div>
-            </div>
-            <div class="row-2 row unselectable">
-                <div *ngFor="let date of displayCalendar[1]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
-                    <div id="calendar-day">
-                        {{ date.date }}
-                    </div>
-                    <div class="bar-container" *ngIf="!date.previousdays">
-                        <div class="progress" *ngFor="let appointment of date.appointments" [style.width]="width" [ngClass]="{progressAvailable:appointment.description, progressNotAvailable:!appointment.description}"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row-3 row unselectable">
-                <div *ngFor="let date of displayCalendar[2]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
-                    <div id="calendar-day">
-                        {{ date.date }}
-                    </div>
-                    <div class="bar-container" *ngIf="!date.previousdays">
-                        <div class="progress" *ngFor="let appointment of date.appointments" [style.width]="width" [ngClass]="{progressAvailable:appointment.description, progressNotAvailable:!appointment.description}"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row-4 row unselectable">
-                <div *ngFor="let date of displayCalendar[3]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
-                    <div id="calendar-day">
-                        {{ date.date }}
-                    </div>
-                    <div class="bar-container" *ngIf="!date.previousdays">
-                        <div class="progress" *ngFor="let appointment of date.appointments" [style.width]="width" [ngClass]="{progressAvailable:appointment.description, progressNotAvailable:!appointment.description}"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row-5 row unselectable">
-                <div *ngFor="let date of displayCalendar[4]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
-                    <div id="calendar-day">
-                        {{ date.date }}
-                    </div>
-                    <div class="bar-container" *ngIf="!date.previousdays">
-                        <div class="progress" *ngFor="let appointment of date.appointments" [style.width]="width" [ngClass]="{progressAvailable:appointment.description, progressNotAvailable:!appointment.description}"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row-6 row unselectable">
-                <div *ngFor="let date of displayCalendar[5]" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
-                    <div id="calendar-day">
-                        {{ date.date }}
-                    </div>
-                    <div class="bar-container" *ngIf="!date.previousdays">
-                        <div class="progress" *ngFor="let appointment of date.appointments" [style.width]="width" [ngClass]="{progressAvailable:appointment.description, progressNotAvailable:!appointment.description}"></div>
-                    </div>
-                </div>
-                
             </div>
 
     </div>
@@ -113,5 +62,3 @@
         </div>
     <div>
 </div>
-
-
