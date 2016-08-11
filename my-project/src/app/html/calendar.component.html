@@ -1,3 +1,5 @@
+
+
 <section>
     <div class="setting">
         <h1>Appointment Book</h1>
@@ -21,23 +23,23 @@
     </div>
     <div class="calendarContainer">
         <div class="calendarheading">
-            <i class="material-icons unselectable" (click)="getLastMonth()">keyboard_arrow_left</i>
+            <i class="material-icons unselectable" (click)="PrevNode()">keyboard_arrow_left</i>
             <div>
-            <h1>{{ month[currentMonth] }}</h1>
-            <h3>{{ currentYear }}</h3>
+            <h1>{{ month[position.month] }}</h1>
+            <h3>{{ position.year }}</h3>
             </div>
-            <i class="material-icons unselectable" (click)="getNextMonth()">keyboard_arrow_right</i>
+            <i class="material-icons unselectable" (click)="NextNode()">keyboard_arrow_right</i>
         </div>
         <div class="dayNameContainer unselectable">
             <div *ngFor="let day of day" class="dayName">{{ day }}</div>
         </div>
 
             <div class="date-container unselectable">
-                <div *ngFor="let date of calendar" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.previousdays}" (click)="getLightBox(date)">
+                <div *ngFor="let date of position.days" class="date" [ngClass]="{invisibleRow: date.hide, currentday: date.today, previousdays: date.isPreviousDay}" (click)="getLightBox(date)">
                     <div id="calendar-day">
                         {{ date.date }}
                     </div>
-                    <div class="bar-container" *ngIf="!date.previousdays">
+                    <div class="bar-container" *ngIf="!date.isPreviousDay">
                         <div class="progress" *ngFor="let appointment of date.appointments" [style.width]="width" [ngClass]="{progressAvailable:appointment.available[0].isAvailable, progressNotAvailable:!appointment.available[0].isAvailable}"></div>
                     </div>
                 </div>

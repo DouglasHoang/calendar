@@ -1,5 +1,16 @@
-Deadline July 16 Saturday
+Deadline July 30 Saturday
 
 Objective:
-User is able to select service and technician and shows available times
-Make the appointment feature usable
+Implement doubly-linked list to the calendar.
+Don't go back to a previous month.
+
+
+Calendar
+Can't go back a month.
+
+Object structure
+Person
+    month
+        day
+            appointment
+

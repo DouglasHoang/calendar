@@ -13,6 +13,10 @@ import { DayService } from './dayservice';
 import { TimePipe } from './time-pipe';
 import { AppointmentService } from './appointment.service';
 import { MockData } from './mock-data';
+// doubly linked list stuff
+import { DoublyList, Node } from './doubly-linkedlist';
+import { DayProto, DayServiceProto } from './create-days';
+
 
 @Component({
     selector: 'my-calendar',
@@ -88,7 +92,7 @@ export class CalendarComponent {
     }
     
     getLightBox(data) {
-        if (data.previousdays == false) {
+        if (data.isPreviousDay == false) {
             this.displayLightBox = true;
             this.date = data.date;
             this.dayNumber = data.dayName;
@@ -103,37 +107,43 @@ export class CalendarComponent {
     }
     
 
-    getLastMonth() {
-        if ( this.currentMonth == 0 ) {
-            this.currentMonth = 11;
-            this.currentYear--;
+    //  Using doubly linked list
+    monthlist = new DoublyList;
+    testDate = new Date;
+    calendarProto = new DayServiceProto(this.currentMonth, this.currentYear).getCalendar();
+    dude = this.createNode();
+    index = 0;
+    monthNumber: number = this.currentMonth;
+    position: Node;
+
+    createNode() {
+        this.monthlist.addToHead(this.currentYear, this.currentMonth, this.calendarProto);
+        this.position = this.monthlist.head;
+    }
+
+    NextNode() {
+
+        if (this.position.next) {
+            this.position = this.position.next;
         }
-        this.currentMonth--;
-        this.numberDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
-        this.calendar = new DayService(this.currentMonth, this.currentYear).getCalendar();
-        this.startingIndex = this.getAppointmentsIndex();
-        this.fillCalendar();
-
-    }
-
-    getNextMonth() {
-        this.currentMonth++;
-        if ( this.currentMonth == 12) {
-            this.currentMonth = 0;
-            this.currentYear++;
+        else {
+            this.monthNumber++;
+            this.testDate = new Date(this.currentYear, this.monthNumber, 1);
+            this.position.next = this.monthlist.addToTail(this.testDate.getFullYear(), this.testDate.getMonth(), new DayServiceProto(this.monthNumber, this.currentYear).getCalendar());
+            this.position = this.position.next;
         }
-        this.numberDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
-        this.calendar = new DayService(this.currentMonth, this.currentYear).getCalendar();
-        this.startingIndex = this.getAppointmentsIndex();
-        this.fillCalendar();
+
     }
 
-    getToday() {
-        this.currentYear = this.dateObj.getFullYear();
-        this.currentMonth = this.dateObj.getMonth();
-        this.numberDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
-        this.calendar = new DayService(this.currentMonth, this.currentYear).getCalendar();
+    PrevNode() {
+        console.log(this.position);
+        if (this.position.prev) {
+            this.position = this.position.prev;
+            this.calendarProto = this.position.days;
+        }
+
     }
+
 
 
 }
